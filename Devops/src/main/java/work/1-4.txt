@@ -1,0 +1,210 @@
+Linux 1-4章练习题目
+
+
+一.选择题
+
+1.Linux系统中查看ip地址的命令是(B)
+
+A ipconfig B ifconfig C icmp D iptables
+
+
+
+2.下列文件中，包含了主机名到IP地址的映射关系的文件是(B）
+
+A /etc/HOSTNAME
+
+B /etc/hosts
+
+C /etc/resolv.conf
+
+D /etc/networks
+
+
+
+3.若要将鼠标从VM中释放出来，可按 （A）键来实现
+
+A Ctrl + alt
+
+B. crtl + alt +del
+
+C. CTRL+alt + Enter
+
+D. ctrl + ENTER
+
+
+
+
+
+4.Linux有三个查看文件的命令，若希望在查看文件内容过程中可以用上光标上下移动来查看文件内容，应使用（BC）命令。
+
+A cat
+
+B more
+
+C less
+
+D menu
+
+
+
+
+
+5.统计磁盘空间或文件系统使用情况的命令是（A）
+
+A df
+
+B dd
+
+C du
+
+D fdisk
+
+
+
+6.在使用mkdir命令创建新的目录时，在其他父目录不存在时先创建父目录的选项是 （D）
+
+A -m
+
+B -d
+
+C -f
+
+D -p
+
+
+
+
+
+7.如果用户想对某一命令详细的了解，可用(B)
+
+A ls
+
+B help
+
+C man
+
+D dir
+
+
+
+8.Linux用于启动系统所需加载的内核程序位于（B）
+
+A /
+
+B /lib/modules/2.4.20_8/kernel
+
+C /boot
+
+D /proc
+
+
+
+9.在下列命令中，不能显示文本文件内容的命令是（D）
+
+A more
+
+B less
+
+C tail
+
+D join
+
+
+
+10.linux的组成不包含以下哪些（D）
+
+A 内核
+
+B shell
+
+C 文件系统
+
+D 虚拟机
+
+
+
+二.简答题
+
+1.请描述Linux系统从开机到登录界面的启动过程？
+
+(一)开机自检bios自检，
+
+(二)MBR(MBR)引导系统启动,
+
+(三)grub(多重启动管理器)菜单,加载内核镜像,
+
+(四)运行init进程(系统中的第一个进程)
+
+(五)从/etc/inittab读取运行级别,
+
+(六)执行/etc/rc.sysinit初始化脚本，
+
+(七)根据不同的运行级别运行/etc/rc.d下面的服务，
+
+(八)启动mingetty(精简 getty)，
+
+(九)显示登录界面
+
+
+
+2.简述解决忘记root密码的方法
+
+1.重启系统，待系统启动到grub2引导菜单时，找到当前系统引导选项(如果有多个可用内核，则会有多个引导选项)，按e键，进入编辑模式。
+
+2.然后通过上下方向键将光标定位到kernel引导行所在行尾，然后添加以下内容
+
+ init=/bin/sh
+
+
+3.添加完成，按Ctrl+x组合键启动shell引导，最后进入单用户模式
+
+4.要挂载根分区为可读写模式，执行如下命令
+
+mount -o remount,rw /
+
+
+5.这里需要注意，如果系统已开启了SELinux，还需要在根分区中创建autorelabel文件，否则系统无法正常启动。
+
+查看SELinux是否开启
+
+/usr/sbin/sestatus
+
+(如果SELinux开启)，创建autorelabel文件
+
+touch /.autorelabel
+
+6.然后就可以执行passwd命令重置密码了。
+
+passwd
+
+提示输入两次新密码即可。
+
+7.密码修改完后，需要重启
+
+直接执行reboot命令已经无效，需要输入全路径命令
+
+exec  /sbin/init
+或
+exec  /sbin/reboot
+
+这样就完成了密码重置，正常登陆系统，查看密码是否修改成功。
+
+
+三.操作练习
+
+1.在当前目录/home/zheng/下新建一个目录back,将当前目录改为back，在back下新建2个长度为0的文件test1,test2,然后把Test2移动到其父目录中并改名为file12.
+
+mkdir back
+cd ..
+mv zheng back
+cd back
+touch test1 test2
+mv test2 ../file12
+
+
+2.创建目录/data/oldboy ,并且在该目录下创建文件oldboy.txt.然后在文件oldboy.txt里写入内容
+
+mkdir -p /data/oldboy
+touch /data/oldboy/oldboy.txt
+echo "123" >> /data/oldboy/oldboy.txt
+
