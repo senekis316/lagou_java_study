@@ -1,0 +1,179 @@
+Linux 5-8章作业题目
+
+一.选择题
+
+1.在vi编辑器里，命令”dd’用来删除当前的（A）
+
+A 行
+
+B 变量
+
+C字
+
+D字符
+
+
+
+2.（D）命令是在vi编辑器中执行存盘退出。
+
+A :q
+
+B :ZZ
+
+C :q!
+
+D :wq
+
+
+
+3.在vi编辑器中的命令模式下，键入（B）可在光标当前所在行下添加一新行。
+
+ A: a
+
+B: o
+
+ C: I
+
+ D: A
+
+
+
+4.在Linux系统上，下面哪个命令不可以用来查看文件内容（B）。
+
+ A: cat
+
+ B: ls
+
+ C: less
+
+ D: more
+
+
+
+5.在vi中编辑后退出不保存的命令是（D）？
+
+ A :q
+
+ B :w
+
+ C :wq
+
+ D :q!
+
+
+
+二.操作练习
+
+1.查询操作
+
+1）寻找名称为 mytest.log的文件
+find / -name mytest.log
+
+
+2）按文件名：根据名称查找 /home 目录下的 hello.txt 文件
+find /home -name hello.txt
+
+
+3）按拥有者：查找 /opt 目录下，用户名称为 nobody 的文件
+find /opt -user nobody
+
+
+4）查找整个 linux 系统下大于 20m 的文件 （+n 大于  -n小于  n等于）
+find / -size +20M
+
+
+2.若给需要将/home/zheng目录下所有文件打包压缩成/tmp/zheng.tar.gz.你准备怎么做？当需要从压缩包中恢复时，又该如何处理？
+tar -zcvf /tmp/zheng.tar.gz /home/zheng
+
+
+3.练习使用 VI 编辑器，完成下列各项内容。
+
+配套文件：log4j.properties
+
+# Set root category priority to INFO and its only appender to CONSOLE.
+#log4j.rootCategory=INFO, CONSOLE            debug   info   warn error fatal
+log4j.rootCategory=INFO, CONSOLE, LOGFILE
+
+# Set the enterprise logger category to FATAL and its only appender to CONSOLE.
+log4j.logger.org.apache.axis.enterprise=FATAL, CONSOLE
+
+# CONSOLE is set to be a ConsoleAppender using a PatternLayout.
+log4j.appender.CONSOLE=org.apache.log4j.ConsoleAppender
+log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
+log4j.appender.CONSOLE.layout.ConversionPattern=%d{ISO8601} %-6r [%15.15t] %-5p %30.30c %x - %m\n
+
+# LOGFILE is set to be a File appender using a PatternLayout.
+log4j.appender.LOGFILE=org.apache.log4j.FileAppender
+log4j.appender.LOGFILE.File=d:/axis.log
+log4j.appender.LOGFILE.Append=true
+log4j.appender.LOGFILE.layout=org.apache.log4j.PatternLayout
+log4j.appender.LOGFILE.layout.ConversionPattern=%d{ISO8601} %-6r [%15.15t] %-5p %30.30c %x - %m\n
+
+
+1)请在/tmp 目录下建立一个名为 vitest 的目录；
+mkdir /tmp/vitest
+
+2) 进入 vitest 目录中；
+cd /tmp/vitest
+
+3) 将/etc/man_db.conf 复制到本目录中；
+cp /etc/man_db.conf ./
+
+4) 使用 vi 打开本目录下的 man_db.conf 文件；
+vi man_db.conf
+
+5) 在 vi 中设置行号；
+set nu
+
+6) 移动到第 61 行，向右移动 40 个字符，请问双引号内是什么目录？
+/opt/man
+
+7) 移动到第一行，并且向下搜索“white”字符串，请问它在第几行？
+8
+
+8) 接下来要将 1～18 行的 apache 改为 APACHE，并且一个一个挑选是否需要修改，如何执行命令？
+:1,18s/apache/APACHE/gc
+
+9) 修改完之后，突然反悔了，要全部复原，有哪些办法？
+:q!
+
+10）删除 5～15 行内容；
+:5
+11dd
+
+11）将这个文件另存为 test.properties文件；
+:w ./test.properties
+
+12）储存后离开。
+:wq
+
+
+
+
+4.时间练习
+
+1）显示当前时间年月日
+date +"%Y-%m-%d"
+
+
+2）设置系统时间为： 2021-10-10 11:22:23
+date -s "2021-10-10 11:22:23"
+
+
+
+5.压缩系统的/home目录，使用zip格式压缩，并且命名为student.tar.gz, 此文件要放在 /tmp/rhel7 目录下
+tar -zcvf student.tar.gz /home -C /tmp/rhel7
+
+
+6.etc/目录为 linux 系统的默认的配置文件及服务启动命令的目录
+
+a.请用 tar打包/etc 整个目录（打包及压缩）
+tar -zcvf etc.tar.gz /etc
+
+
+b.请用 tar打包/etc 整个目录（打包及压缩，但需要排除/etc/services 文件）
+tar -zcvf etc.tar.gz /etc --exclude /etc/services
+
+
+
+
